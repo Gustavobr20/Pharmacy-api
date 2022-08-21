@@ -5,25 +5,43 @@ db = DBConnection()
 session = db.get_session()
 
 
-def get_patients():
+def get_patients() -> object:
+    """
+    Retorna do banco de dados todos os dados dos pacientes
+    """
 
     data = session.query(Patients).all()
+
+    for i in data:
+        print(i)
+
+    # json_data = map(lambda x: json.dumps(x, indent=4), data)
+
     return data
 
 
-def get_pharmacies():
+def get_pharmacies() -> object:
+    """
+    Retorna do banco de dados todos os dados das farmacias
+    """
 
     data = session.query(Pharmacies).all()
     return data
 
 
-def get_transactions():
+def get_transactions() -> object:
+    """
+    Retorna do banco de dados todas as transações
+    """
 
     data = session.query(Transactions).all()
     return data
 
 
 def get_user(username: str):
+    """
+    Busca e retorna do banco de dados um usúario filtrado pelo username
+    """
 
     data = session.query(Users).filter(Users.USERNAME == username).all()
 
@@ -33,19 +51,26 @@ def get_user(username: str):
         return False
 
 
-def create_user(username: str, password: str):
+def create_user(username: str, password: str) -> bool:
+    """
+    Insere um novo usuário no banco de dados
+    """
 
+    # Busca no banco de dados se existe um usuario filtrando pelo username
     data = session.query(Users).filter(
-        Users.USERNAME == username.upper()).all()
+        Users.USERNAME == username).all()
 
+    # Verifica se retornou algum dado do banco
     if len(data) == 0:
 
+        # Pega o ultimo dado do banco para criar o próximo uuid do novo usuario
         last_uuid = session.query(Users).order_by(Users.UUID.desc()).first()
 
         new_idx = str(int(last_uuid.UUID[4::]) + 1)
 
         new_numbers_uuid = new_idx.replace(new_idx, f'{new_idx:0>4}')
 
+        # Insere o novo usuario
         new_user = Users(UUID="USER" + new_numbers_uuid,
                          USERNAME=username, PASSWORD=password)
 
