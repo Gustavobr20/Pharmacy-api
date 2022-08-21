@@ -1,29 +1,41 @@
-from fastapi import FastAPI, APIRouter, Depends
+from fastapi import FastAPI, Depends, HTTPException, Form
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-
+from app.crud import crud
 from .api.v1.endpoints import api_router
-import uvicorn
 
 
 app = FastAPI(title="Pharmacy API")
-root_router = APIRouter()
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='token')
 
-def run_server():
-    uvicorn.run("app.main:app", host='127.0.0.1', port=8000, reload=True)
 
-
-@root_router.get("/")
-def token(token: str = Depends(oauth2_scheme)):
+@app.get("/")
+def get_token(token: str = Depends(oauth2_scheme)):
     return {"token": token}
 
 
-@root_router.get("/token")
+@app.post("/token")
 def token_generate(form_data: OAuth2PasswordRequestForm = Depends()):
-    return {'access_token': form_data.username + 'token'}
+
+    user = crud.get_user(form_data.username)
+
+    if user:
+        if user.PASSWORD == form_data.password:
+            return {"access_token": user.USERNAME, "token_type": "bearer"}
+
+    raise HTTPException(
+        status_code=400, detail="Incorrect username or password")
 
 
-app.include_router(root_router, prefix='/api', tags=['Authentication'])
+@app.post("/user/create", status_code=200)
+def create_user(username: str = Form(), password: str = Form()):
+
+    user_created = crud.create_user(username, password)
+
+    if user_created:
+        return {"message": "user created successfully"}
+    else:
+        return {"message": "user is already in use, please change"}
+
+
 app.include_router(api_router, prefix='/api/v1', tags=['Pharmacy'])
-

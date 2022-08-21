@@ -33,3 +33,13 @@ class Transactions(Base):
     PHARMACY_UUID = Column(String)
     AMOUNT = Column(Numeric, nullable=False)
     TIMESTAMP = Column(DateTime, nullable=False)
+
+
+class Users(Base):
+
+    __tablename__ = "USERS"
+
+    UUID = Column(String, primary_key=True)
+    USERNAME = Column(String, nullable=False)
+    PASSWORD = Column(String, nullable=False)
+
