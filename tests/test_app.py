@@ -1,4 +1,3 @@
-from urllib import response
 from app import __version__
 from fastapi.testclient import TestClient
 from app.main import app
@@ -17,7 +16,7 @@ def test_create_existing_user():
 
     response.status_code == 400
     assert response.json() == {"message": "user is already in use, please change"}
-    
+
 
 def test_generate_token():
     response = client.post("/token", data={'username': 'pytest1', 'password': 'pytest1'})
