@@ -42,4 +42,3 @@ class Users(Base):
     UUID = Column(String, primary_key=True)
     USERNAME = Column(String, nullable=False)
     PASSWORD = Column(String, nullable=False)
-

@@ -1,3 +1,4 @@
+from uuid import UUID
 from app.db.connection import DBConnection
 from app.models import *
 
@@ -11,12 +12,14 @@ def get_patients() -> object:
     """
 
     data = session.query(Patients).all()
+    return data
 
-    for i in data:
-        print(i)
 
-    # json_data = map(lambda x: json.dumps(x, indent=4), data)
-
+def get_patient_by_uuid(uuid: str):
+    """
+    Retorna os dados do paciente pelo seu uuid
+    """
+    data = session.query(Patients).filter(Patients.UUID == uuid).all()
     return data
 
 
@@ -29,12 +32,30 @@ def get_pharmacies() -> object:
     return data
 
 
+def get_pharmacie_by_name(name: str):
+    """
+    Retorna todas as localidades da farmacia especificada pelo nome
+    """
+    data = session.query(Pharmacies).filter(
+        Pharmacies.NAME == name.upper()).all()
+    return data
+
+
 def get_transactions() -> object:
     """
-    Retorna do banco de dados todas as transações
+    Retorna do banco de dados todas as transações em farmacias
     """
 
     data = session.query(Transactions).all()
+    return data
+
+
+def get_transaction_by_uuid_patient(uuid_patient: str):
+    """
+    Retorna todas as transações que o paciente fez
+    """
+    data = session.query(Transactions).filter(
+        Transactions.PATIENT_UUID == uuid_patient.upper()).all()
     return data
 
 

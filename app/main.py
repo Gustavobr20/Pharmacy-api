@@ -14,7 +14,7 @@ def get_token(token: str = Depends(oauth2_scheme)):
     """
     Return Token
     """
-    return {"token": token}
+    return {"token": token + "token"}
 
 
 @app.post("/token")
@@ -32,7 +32,7 @@ def token_generate(form_data: OAuth2PasswordRequestForm = Depends()):
         status_code=400, detail="Incorrect username or password")
 
 
-@app.post("/user/create", status_code=200)
+@app.post("/user/create", status_code=201)
 def create_user(username: str = Form(), password: str = Form()):
     """
     Create new user
