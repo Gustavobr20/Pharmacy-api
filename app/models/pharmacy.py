@@ -1,5 +1,5 @@
 from typing import Any
-from sqlalchemy import Column, String, DateTime, Numeric
+from sqlalchemy import Column, String, DateTime, Float
 from sqlalchemy.ext.declarative import declarative_base
 
 Base: Any = declarative_base()
@@ -31,7 +31,7 @@ class Transactions(Base):
     UUID = Column(String, primary_key=True)
     PATIENT_UUID = Column(String)
     PHARMACY_UUID = Column(String)
-    AMOUNT = Column(Numeric, nullable=False)
+    AMOUNT = Column(Float, nullable=False)
     TIMESTAMP = Column(DateTime, nullable=False)
 
 

@@ -9,25 +9,40 @@ client = TestClient(app)
 def test_version():
     assert __version__ == '0.1.0'
 
-def test_create_user():
+
+def test_create_existing_user():
     
     response = client.post("/user/create", 
                     data={'username': 'pytest1', 'password': 'pytest1'})
 
-    response.status_code == 201
-    assert response.json() == {"message": "user created successfully"}
+    response.status_code == 400
+    assert response.json() == {"message": "user is already in use, please change"}
+    
+
+def test_generate_token():
+    response = client.post("/token", data={'username': 'pytest1', 'password': 'pytest1'})
+
+    assert response.status_code == 200
+    assert response.json() == {"access_token": "pytest1", "token_type": "bearer"}
+
+
+def test_get_token():
+    response = client.get("/", headers={"Authorization": "Bearer pytest1"})
+
+    assert response.status_code == 200
+    assert response.json() == {"token": "pytest1"}
 
 
 def test_get_patients():
     response = client.get("/api/v1/patients",
-                          headers={"Authorization": "Bearer GUSTAVOBR20"})
+                          headers={"Authorization": "Bearer pytest1"})
 
     assert response.status_code == 200
 
 
 def test_get_patient_by_query_param():
     response = client.get("/api/v1/patients/?uuid=PATIENT0001",
-                          headers={"Authorization": "Bearer GUSTAVOBR20"})
+                          headers={"Authorization": "Bearer pytest1"})
 
     data = [{
         "DATE_OF_BIRTH": "1996-10-25T00:00:00",
@@ -51,13 +66,13 @@ def test_get_patients_not_authenticated():
 
 def test_get_pharmacies():
     response = client.get("/api/v1/pharmacies",
-                          headers={"Authorization": "Bearer GUSTAVOBR20"})
+                          headers={"Authorization": "Bearer pytest1"})
     assert response.status_code == 200
 
 
 def test_get_pharmacies_by_query_param():
     response = client.get("/api/v1/pharmacies/?name=DROGA MAIS",
-                          headers={"Authorization": "Bearer GUSTAVOBR20"})
+                          headers={"Authorization": "Bearer pytest1"})
     assert response.status_code == 200
     assert len(response.json()) == 2
 
@@ -72,13 +87,13 @@ def test_get_pharmacies_not_authenticated():
 
 def test_get_transactions():
     response = client.get("/api/v1/transactions",
-                          headers={"Authorization": "Bearer GUSTAVOBR20"})
+                          headers={"Authorization": "Bearer pytest1"})
     assert response.status_code == 200
 
 
 def test_get_transactions_by_query_param():
     response = client.get("/api/v1/transactions/?uuid_patient=PATIENT0001",
-                          headers={"Authorization": "Bearer GUSTAVOBR20"})
+                          headers={"Authorization": "Bearer pytest1"})
     assert response.status_code == 200
 
 

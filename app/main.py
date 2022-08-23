@@ -14,7 +14,7 @@ def get_token(token: str = Depends(oauth2_scheme)):
     """
     Return Token
     """
-    return {"token": token + "token"}
+    return {"token": token}
 
 
 @app.post("/token")
