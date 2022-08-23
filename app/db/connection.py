@@ -1,13 +1,17 @@
 # from sqlite3 import connect
-from typing import Any
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+import os
 
 
 class DBConnection:
 
     def __init__(self) -> None:
-        self.__database_url = 'sqlite:///app/db/backend_test.db'
+
+        ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+        DB_PATH = os.path.join(ROOT_DIR, 'backend_test.db')
+
+        self.__database_url = 'sqlite:///' + DB_PATH
         self.__engine = self.__create_database_engine()
         self.session = self.__create_session()
 

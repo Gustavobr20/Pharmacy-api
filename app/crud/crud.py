@@ -1,4 +1,3 @@
-from uuid import UUID
 from app.db.connection import DBConnection
 from app.models import *
 
