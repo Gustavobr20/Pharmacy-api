@@ -9,10 +9,13 @@ client = TestClient(app)
 def test_version():
     assert __version__ == '0.1.0'
 
+def test_create_user():
+    
+    response = client.post("/user/create", 
+                    data={'username': 'pytest1', 'password': 'pytest1'})
 
-def test_error_not_authenticated():
-    response = client.get("/")
-    assert response.status_code == 401
+    response.status_code == 201
+    assert response.json() == {"message": "user created successfully"}
 
 
 def test_get_patients():
@@ -35,6 +38,15 @@ def test_get_patient_by_query_param():
 
     assert response.status_code == 200
     assert response.json() == data
+    
+
+def test_get_patients_not_authenticated():
+    response = client.get("/api/v1/patients")
+    
+    data = {"detail": "Not authenticated"}
+
+    assert response.status_code == 401
+    assert response.json() == data
 
 
 def test_get_pharmacies():
@@ -49,6 +61,14 @@ def test_get_pharmacies_by_query_param():
     assert response.status_code == 200
     assert len(response.json()) == 2
 
+def test_get_pharmacies_not_authenticated():
+    response = client.get("/api/v1/pharmacies")
+
+    data = {"detail": "Not authenticated"}
+
+    assert response.status_code == 401
+    assert response.json() == data
+
 
 def test_get_transactions():
     response = client.get("/api/v1/transactions",
@@ -60,3 +80,12 @@ def test_get_transactions_by_query_param():
     response = client.get("/api/v1/transactions/?uuid_patient=PATIENT0001",
                           headers={"Authorization": "Bearer GUSTAVOBR20"})
     assert response.status_code == 200
+
+
+def test_get_transactions_not_authenticated():
+    response = client.get("/api/v1/transactions")
+    
+    data = {"detail": "Not authenticated"}
+
+    assert response.status_code == 401
+    assert response.json() == data
