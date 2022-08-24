@@ -30,7 +30,7 @@
 <ul>
     <li><a href="#">127.0.0.1:8000/</a> (Retorna o token do usuário logado).</li>
     <li><a href="#">127.0.0.1:8000/token</a> (Gerá o Token passando os dados de login do usuário).</li>
-    <li><a href="#">127.0.0.1:8000/user/create</a> (Cria um novo usuário).</li>
+    <li><a href="#">127.0.0.1:8000/user/create</a> (Cria um novo usuário, para geração do Token).</li>
     <li><a href="#">127.0.0.1:8000/api/v1/patients</a> (Lista todos os pacientes cadastrados no banco de dados).</li>
     <li><a href="#">127.0.0.1:8000/api/v1/patients/?uuid=PATIENT0001</a> (Retorna o paciente filtrado pelo uuid, utilizando query params).</li>
     <li><a href="#">127.0.0.1:8000/api/v1/pharmacies</a> (Lista todas as farmácias cadastradas no banco de dados).</li>
