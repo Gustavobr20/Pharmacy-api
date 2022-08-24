@@ -4,7 +4,9 @@
 
 <p><b>*</b> Para instalação do projeto será preciso utilizar o Poetry, gerenciador de dependencias e pacotes.</p>
 
-<p>O passo a passo para instalação do Poetry está neste link: <a href="https://python-poetry.org/docs/#installation">https://python-poetry.org/docs/#installation</a></p><br>
+<p>O passo a passo para instalação do Poetry está neste link: <a href="https://python-poetry.org/docs/#installation">https://python-poetry.org/docs/#installation</a></p>
+
+<p>Também será necessário Python 3.10 +</p><br>
 
 <h2><a>2. Instalação</a></h2>
 
@@ -26,18 +28,18 @@
 
 <p>Endpoints disponíveis</p>
 <ul>
-    <li><a>127.0.0.1:8000/</a> (Retorna o token do usuário logado).</li>
-    <li><a>127.0.0.1:8000/token</a> (Gerá o Token passando os dados de login do usuário).</li>
-    <li><a>127.0.0.1:8000/user/create</a> (Cria um novo usuário).</li>
-    <li><a>127.0.0.1:8000/api/v1/patients</a> (Lista todos os pacientes cadastrados no banco de dados).</li>
-    <li><a>127.0.0.1:8000/api/v1/patients/?uuid=PATIENT0001</a> (Retorna o paciente filtrado pelo uuid, utilizando query params).</li>
-    <li><a>127.0.0.1:8000/api/v1/pharmacies</a> (Lista todas as farmácias cadastradas no banco de dados).</li>
-    <li><a>127.0.0.1:8000/api/v1/pharmacies/?name=DROGA MAIS</a> (Retorna os dados filtrando pelo nome da farmácia, utilizando query params).</li>
-    <li><a>127.0.0.1:8000/api/v1/transactions</a> (Lista todos as transações feitas pelos pacientes nas farmácias cadastradas).</li>
-    <li><a>127.0.0.1:8000/api/v1/transactions/?uuid_patient=PATIENT0001</a> (Retorna as transações de determinado paciente filtrado pelo uuid, utilizando query params).</li>
+    <li><a href="#">127.0.0.1:8000/</a> (Retorna o token do usuário logado).</li>
+    <li><a href="#">127.0.0.1:8000/token</a> (Gerá o Token passando os dados de login do usuário).</li>
+    <li><a href="#">127.0.0.1:8000/user/create</a> (Cria um novo usuário).</li>
+    <li><a href="#">127.0.0.1:8000/api/v1/patients</a> (Lista todos os pacientes cadastrados no banco de dados).</li>
+    <li><a href="#">127.0.0.1:8000/api/v1/patients/?uuid=PATIENT0001</a> (Retorna o paciente filtrado pelo uuid, utilizando query params).</li>
+    <li><a href="#">127.0.0.1:8000/api/v1/pharmacies</a> (Lista todas as farmácias cadastradas no banco de dados).</li>
+    <li><a href="#">127.0.0.1:8000/api/v1/pharmacies/?name=DROGA MAIS</a> (Retorna os dados filtrando pelo nome da farmácia, utilizando query params).</li>
+    <li><a href="#">127.0.0.1:8000/api/v1/transactions</a> (Lista todos as transações feitas pelos pacientes nas farmácias cadastradas).</li>
+    <li><a href="#">127.0.0.1:8000/api/v1/transactions/?uuid_patient=PATIENT0001</a> (Retorna as transações de determinado paciente filtrado pelo uuid, utilizando query params).</li>
 </ul>
 
-<p>OBS.: Todas as rotas, exceto: <a>/token</a> e <a>/user/create</a>, são necessárias utilização do token de authenticação Bearer, exemplo: "Authentication": "Bearer teste123"</p>
+<p>OBS.: Todas as rotas, exceto: <a href="#">/token</a> e <a href="#">/user/create</a>, são necessárias utilização do token de authenticação Bearer, exemplo: "Authentication": "Bearer teste123"</p>
 
 <h3>Dentro do projeto existe a pasta chamda <b>tests</b>, nela contém alguns testes da API sendo feitos utilizando a biblioteca <b>Pytest</b></h3>
 <p>Para executar os testes dentro de <b>test_app.py</b>, utilizar o comando via terminal: <b>poetry run pytest</b>.</p><br>
